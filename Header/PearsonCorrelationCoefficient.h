@@ -1,19 +1,20 @@
 #pragma once
 #include <vector>
 #include <cmath>
+#include <algorithm>
 using namespace std;
 /* y_i = alpha * x_i + beta + epsilon */
 
 bool PearsonCorrelationCoefficient(vector<double> *xData, vector<double> *yData,
 	double *correlationCoeeficient, double *rSquare, double *alpha, double *beta)
 {
-	if (xData->size() != y->size()) { return false;}
+	if (xData->size() != yData->size()) { return false; }
 
-	int n = static_cast<int>(x->size());
-	if (n == 0) { return false };
+	int n = static_cast<int>(xData->size());
+	if (n == 0) { return false; }
 
-	vector<double>::const_iterator xIterator = x->begin();
-	vector<double>::const_iterator yIterator = y->begin();
+	vector<double>::const_iterator xIterator = xData->begin();
+	vector<double>::const_iterator yIterator = yData->begin();
 
 	double xSum = 0;
 	double ySum = 0;
@@ -21,7 +22,7 @@ bool PearsonCorrelationCoefficient(vector<double> *xData, vector<double> *yData,
 	double ySquareSum = 0;
 	double xySum = 0;
 
-	for (; xIterator != x->end(); ++xIteratator, ++yIterator)
+	for (; xIterator != xData->end(); ++xIterator, ++yIterator)
 	{
 		xSum += *xIterator;
 		ySum += *yIterator;
@@ -33,7 +34,7 @@ bool PearsonCorrelationCoefficient(vector<double> *xData, vector<double> *yData,
 	if (correlationCoeeficient != NULL)
 	{
 		double nominator = (n * xySum - xSum * ySum);
-		double denominator = sqrt(n * xSqareSum - xSum * xSum) * sqrt(n * ySqaureSum - ySum * ySum);
+		double denominator = sqrt(n * xSquareSum - xSum * xSum) * sqrt(n * ySquareSum - ySum * ySum);
 
 		*correlationCoeeficient = nominator / denominator;
 	}
@@ -52,9 +53,9 @@ bool PearsonCorrelationCoefficient(vector<double> *xData, vector<double> *yData,
 	xIterator = xData->begin();
 	yIterator = yData->begin();
 
-	for (; xIterator != x->end(); ++xIterator, ++yIterator)
+	for (; xIterator != xData->end(); ++xIterator, ++yIterator)
 	{
-		SStot += ((*yIterator - yMean) * (*Iterator - yMean));
+		SStot += ((*yIterator - yMean) * (*yIterator - yMean));
 		SSerr += ((*yIterator - alphaSub * (*xIterator) - betaSub) * (*yIterator - alphaSub * (*xIterator) - betaSub));
 	}
 
