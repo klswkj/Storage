@@ -39,7 +39,7 @@ bool Ksubset(const vector<int>& sourceSet, int k, vector<vector<int> > *dest)
 {
 	if (sourceSet.empty() == true) { return false; }
 
-	int sourceLength = static_cast<int> (source_set.size());
+	int sourceLength = static_cast<int> (sourceSet.size());
 	if (k <= 0 || k > sourceLength) { return false; }
 	if (sourceLength == k)
 	{
@@ -49,13 +49,13 @@ bool Ksubset(const vector<int>& sourceSet, int k, vector<vector<int> > *dest)
 
 	const int& maxLength = sourceLength;
 	int *index = new int[k];
-	
+
 	for (int i = 0; i < k; ++i)
 	{
 		index[i] = i;
 	}
 
-	while (true) 
+	while (true)
 	{
 		vector<int> subset = Copy(sourceSet, index, k);
 		dest->push_back(subset);
