@@ -14,7 +14,7 @@ namespace
 	
 	const size_t kBaseCaseSize = 50;
 
-	vector<size_t> doubledVersionOf(const vector<size_t> &inputString)
+	vector<size_t> DoubledVersionOf(const vector<size_t> &inputString)
 	{
 		vector<size_t> result;
 
@@ -57,8 +57,8 @@ namespace
 
 	/* Uses counting sort to srot a collection of triples of characters. */
 	template <size_t index>
-	void countingSort(vector<DC3Block> &blocks,
-		              vector<vector<DC3Block>> &buckets)
+	void CountingSort(vector<DC3Block> &blocks,
+		          vector<vector<DC3Block>> &buckets)
 	{
 		for (const auto& block : blocks)
 		{
@@ -78,13 +78,14 @@ namespace
 	}
 
 	/* Radix sorts a list of DC3 blocks. */
-	void radixSort(vector < DC3Block &blocks, size_t numBuckets)
+	void RadixSort(vector < DC3Block &blocks, size_t numBuckets)
 	{
 		vector<vector<DC3Block>> buckets(numBuckets);
 
-		countingSort<2>(blocks, buckets);
-		countingSort<1>(blocks, buckets);
-		countingSort<0>(blocks, buckets);
+		
+		<2>(blocks, buckets);
+		CountingSort<1>(blocks, buckets);
+		CountingSort<0>(blocks, buckets);
 	}
 
 	/* Builds the partial suffix array for the positions 
@@ -94,7 +95,7 @@ namespace
 	SuffixArray SolveNonCongruentPositionsIn(const vector<size_t> &inputString)
 	{
 		/* Form the first prefix string and pad up to a length that's a multiple of 3. */
-		vector<size_t> bigString = doubledVersionOf(inputString);
+		vector<size_t> bigString = DoubledVersionOf(inputString);
 
 		/* Form blocks of 3 characters each.
 		 * each tagged with their index, to prep for the radix sort.
@@ -102,15 +103,15 @@ namespace
 		vector<DC3Block> blocks;
 		for (size_t i = 0; i < bigString.size(); i += 3)
 		{
-			blocks.push_back({ std::make_tuple(bigString[i], bigString[i + 1], bigString[i + 2]), i / 3 });
+			blocks.push_back({ make_tuple(bigString[i], bigString[i + 1], bigString[i + 2]), i / 3 });
 		}
 
 		/* Radix sort these items to get them in order.
 		 * The number of buckets we'll need is equal to the maximum value
 		 * in the new string + 1 .
 		 */
-		size_t maxValue = *std::max_element(bigString.begin(), bigString.end());
-		radixSort(blocks, maxValue + 1);
+		size_t maxValue = *max_element(bigString.begin(), bigString.end());
+		RadixSort(blocks, maxValue + 1);
 
 		/* Form a new string by relabeling each character with its index.
 		 * To be careful (because certain blocks might be duplicated & we need to get the same label.
@@ -130,7 +131,7 @@ namespace
 		}
 
 		/* Run DC3, recursively to get the suffix array */
-		auto suffixArray = dc3(newString);
+		auto SuffixArray = dc3(newString);
 
 		/* Compute the inverse suffix array, which is actually what we want
 		 * because we want to know the rank of each suffix. 
@@ -152,8 +153,8 @@ namespace
 		return result;
 	}
 
-	vector<size_t> sortCongruentPositons(const vector<size_t> &inputString,
-										 const SuffixArray &partial)
+	vector<size_t> SortCongruentPositons(const vector<size_t> &inputString,
+					     const SuffixArray &partial)
 	{
 		/* it will be working with suffixes that positions are multiples of 3.
 		 * Each suffix will be represented as a pair consisting of its first
@@ -163,11 +164,11 @@ namespace
 		vector<DC3Block> blocks;
 		for (size_t i = 0; i < inputString.size(); i += 3)
 		{
-			blocks.({ std::make_tuple(inputString[i], (i == inputString.size() - 1 ? 0 : partial[i + 1]), 0), i });
+			blocks.({ make_tuple(inputString[i], (i == inputString.size() - 1 ? 0 : partial[i + 1]), 0), i });
 		}
 
 		/* Raidx sort all of those. */
-		radixSort(blocks, inputString.size() + 1);
+		RadixSort(blocks, inputString.size() + 1);
 
 		vector<size_t> result;
 		for (const auto &entry : blocks)
@@ -179,9 +180,9 @@ namespace
 	}
 
 	/* Given a partial suffix array, returns a list of all the noncongruent suffixes in sorted order. */
-	vector<size_t> sortCongruentPositons(const SuffixArray &prtial)
+	vector<size_t> SortCongruentPositons(const SuffixArray &partial)
 	{
-		vector<size_t> result(*std::max_element(partial.begin(), partial.end()) + 1);
+		vector<size_t> result(*max_element(partial.begin(), partial.end()) + 1);
 
 		for (size_t i = 0; i < partial.size(); ++i)
 		{
@@ -195,10 +196,10 @@ namespace
 	 * Returns a list of the suffixes in sorted order./
 	 */
 
-	SuffixArray merge(const vector<size_t> &sortedb0,
-					  const vector<size_t> &sortedb12,
-					  const vector<size_t> &inputString,
-					  const SuffixArray& prtial)
+	SuffixArray Merge(const vector<size_t> &sortedb0,
+			  const vector<size_t> &sortedb12,
+			  const vector<size_t> &inputString,
+			  const SuffixArray& partial)
 	{
 		SuffixArray result;
 
@@ -223,10 +224,7 @@ namespace
 			else 
 			{
 				if (inputString[sortedb0[b0] + 1] != inputString[sortedb12[b12] + 1]) {b0wins = (inputString[sortedb0[b0] + 1] < inputString[sortedb12[b12] + 1]);}
-				else 
-				{
-					b0wins = (partial[sortedb0[b0] + 2] < partial[sortedb12[b12] + 2]);
-				}
+				else { b0wins = (partial[sortedb0[b0] + 2] < partial[sortedb12[b12] + 2]);}
 			}
 
 			if (b0wins) 
@@ -256,19 +254,20 @@ namespace
 }
 
 
-SuffixArray dc3(const vector<size_t>& text) {
+SuffixArray dc3(const vector<size_t> &text) 
+{
 	/* Base case: Any sufficiently small string we just solve naively. */
-	if (text.size() < kBaseCaseSize) return manberMyers(text);
+	if (text.size() < kBaseCaseSize) {return ManberMyers(text);}
 
 	/* Get a partial result for strings at positions that are congruent to 1 and 2 mod 3. */
-	auto partial12 = solveNonCongruentPositionsIn(text);
+	auto partial12 = SolveNonCongruentPositionsIn(text);
 
 	/* Get a list of the congruent suffixes in sorted order. */
-	auto sorted0 = sortCongruentPositions(text, partial12);
+	auto sorted0 = SortCongruentPositions(text, partial12);
 
 	/* Get a list of the noncongruent suffixes in sorted order. */
-	auto sorted12 = sortNonCongruentPositions(partial12);
+	auto sorted12 = SortNonCongruentPositions(partial12);
 
 	/* Merge them into an overall list. */
-	return merge(sorted0, sorted12, text, partial12);
+	return Merge(sorted0, sorted12, text, partial12);
 }
