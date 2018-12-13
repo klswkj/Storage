@@ -50,11 +50,11 @@ namespace
  * algorithm.
  */
 
-SuffixArray ManberMyers(const vector<size_t> &text)
+suffixArray ManberMyers(const vector<size_t> &text)
 {
-	SuffixArray result = text;
+	suffixArray result = text;
 
-	for (size_t halfsize = 1; halfSize < result.size(); halfSize *= 2)
+	for (size_t halfSize = 1; halfSize < result.size(); halfSize *= 2)
 	{
 		vector<Suffix> strings;
 		for (size_t i = 0; i < result.size(); ++i)
@@ -80,10 +80,10 @@ SuffixArray ManberMyers(const vector<size_t> &text)
 /* Now, it have associating each element with its sorted position.
  * but it want  the inverse of this. 
  */
-	SuffixArray suffixArray(result.size());
-	for (size_t i = 0; i < suffixArray.size(); ++i)
+	suffixArray sA(result.size());
+	for (size_t i = 0; i < sA.size(); ++i)
 	{
-		suffixArray[result[i]] = i;
+		sA[result[i]] = i;
 	}
-	return suffixArray;
+	return sA;
 }
