@@ -2,7 +2,7 @@
 https://spencer-carroll.com/the-dc3-algorithm-made-simple/
 */
 
-#include "DC3.h"
+#include "../Header/DC3.h"
 #include <tuple>
 #include <algorithm>
 using namespace std;
@@ -78,12 +78,12 @@ namespace
 	}
 
 	/* Radix sorts a list of DC3 blocks. */
-	void RadixSort(vector < DC3Block &blocks, size_t numBuckets)
+	void RadixSort(vector < DC3Block> &blocks, size_t numBuckets)
 	{
 		vector<vector<DC3Block>> buckets(numBuckets);
 
 
-		<2>(blocks, buckets);
+		CountingSort<2>(blocks, buckets);
 		CountingSort<1>(blocks, buckets);
 		CountingSort<0>(blocks, buckets);
 	}
@@ -92,7 +92,7 @@ namespace
 	* in text that aren't congruent to 0 mod 3
 	*/
 
-	suffixArray SolveNonCongruentPositionsIn(const vector<size_t> &inputString)
+	SuffixArray SolveNonCongruentPositionsIn(const vector<size_t> &inputString)
 	{
 		/* Form the first prefix string and pad up to a length that's a multiple of 3. */
 		vector<size_t> bigString = DoubledVersionOf(inputString);
@@ -131,30 +131,30 @@ namespace
 		}
 
 		/* Run DC3, recursively to get the suffix array */
-		auto suffixArray = dc3(newString);
+		auto suffixArr = dc3(newString);
 
 		/* Compute the inverse suffix array, which is actually what we want
 		* because we want to know the rank of each suffix.
 		*/
-		suffixArray inverse(suffixArray.size());
-		for (size_t i = 0; i < suffixArray.size(); ++i)
+		SuffixArray inverse(suffixArr.size());
+		for (size_t i = 0; i < suffixArr.size(); ++i)
 		{
-			inverse[suffixArray[i]] = i;
+			inverse[suffixArr[i]] = i;
 		}
 
 		/* Map everything back to its original positions */
 		vector<size_t> result(inputString.size());
 		for (size_t i = 0; i < inverse.size() - 1; ++i)
 		{
-			if (i < inverse.size() / 2) { result[3 * i + 1] = inverse[i]] - 1; }
+			if (i < inverse.size() / 2) { result[3 * i + 1] = inverse[i] - 1; }
 			else { result[3 * (i - inverse.size() / 2) + 2] = inverse[i] - 1; }
 		}
 
 		return result;
 	}
 
-	vector<size_t> SortCongruentPositons(const vector<size_t> &inputString,
-		const suffixArray &partial)
+	vector<size_t> SortCongruentPositions(const vector<size_t> &inputString,
+		const SuffixArray &partial)
 	{
 		/* it will be working with suffixes that positions are multiples of 3.
 		* Each suffix will be represented as a pair consisting of its first
@@ -164,7 +164,7 @@ namespace
 		vector<DC3Block> blocks;
 		for (size_t i = 0; i < inputString.size(); i += 3)
 		{
-			blocks.({ make_tuple(inputString[i], (i == inputString.size() - 1 ? 0 : partial[i + 1]), 0), i });
+			blocks.push_back({ make_tuple(inputString[i], (i == inputString.size() - 1 ? 0 : partial[i + 1]), 0), i });
 		}
 
 		/* Raidx sort all of those. */
@@ -180,7 +180,7 @@ namespace
 	}
 
 	/* Given a partial suffix array, returns a list of all the noncongruent suffixes in sorted order. */
-	vector<size_t> SortCongruentPositons(const suffixArray &partial)
+	vector<size_t> SortNonCongruentPositions(const SuffixArray &partial)
 	{
 		vector<size_t> result(*max_element(partial.begin(), partial.end()) + 1);
 
@@ -196,12 +196,12 @@ namespace
 	* Returns a list of the suffixes in sorted order./
 	*/
 
-	suffixArray Merge(const vector<size_t> &sortedb0,
+	SuffixArray Merge(const vector<size_t> &sortedb0,
 		const vector<size_t> &sortedb12,
 		const vector<size_t> &inputString,
-		const suffixArray& partial)
+		const SuffixArray &partial)
 	{
-		suffixArray result;
+		SuffixArray result;
 
 		/* Indices keeping track of the next unused position in the sortedb0
 		* and sortedb12 arrays.
@@ -230,21 +230,21 @@ namespace
 			if (b0wins)
 			{
 				result.push_back(sortedb0[b0]);
-				b0++;
+				++b0;
 			}
 			else
 			{
 				result.push_back(sortedb12[b12]);
-				b12++;
+				++b12;
 			}
 		}
 
 		/* Transfer all remaining elements. */
-		for (; b0 < sortedb0.size(); b0++)
+		for (; b0 < sortedb0.size(); ++b0)
 		{
 			result.push_back(sortedb0[b0]);
 		}
-		for (; b12 < sortedb12.size(); b12++)
+		for (; b12 < sortedb12.size(); ++b12)
 		{
 			result.push_back(sortedb12[b12]);
 		}
@@ -254,20 +254,20 @@ namespace
 }
 
 
-suffixArray dc3(const vector<size_t> &text)
+SuffixArray dc3(const vector<size_t> &text)
 {
 	/* Base case: Any sufficiently small string we just solve naively. */
 	if (text.size() < kBaseCaseSize) { return ManberMyers(text); }
 
 	/* Get a partial result for strings at positions that are congruent to 1 and 2 mod 3. */
-	auto partial12 = SolveNonCongruentPositionsIn(text);
+	auto partialb12 = SolveNonCongruentPositionsIn(text);
 
 	/* Get a list of the congruent suffixes in sorted order. */
-	auto sorted0 = SortCongruentPositions(text, partial12);
+	auto sortedb0 = SortCongruentPositions(text, partialb12);
 
 	/* Get a list of the noncongruent suffixes in sorted order. */
-	auto sorted12 = SortNonCongruentPositions(partial12);
+	auto sortedb12 = SortNonCongruentPositions(partialb12);
 
 	/* Merge them into an overall list. */
-	return Merge(sorted0, sorted12, text, partial12);
+	return Merge(sortedb0, sortedb12, text, partialb12);
 }
