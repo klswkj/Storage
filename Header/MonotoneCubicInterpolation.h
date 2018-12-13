@@ -26,15 +26,15 @@ double ReturnH11(double t)
 }
 
 bool MonotoneCubicHermiteSpline(int timeLimit, const vector<double> xSrc, const vector<double> ySrc,
-								vector<double> *destX, vector<double> *destY)
+	vector<double> *destX, vector<double> *destY)
 {
 	constexpr double epsilon = numeric_limits<double>::epsilon();
-	int n = static_cast<int>(*xSrc)->size();
+	int n = static_cast<int>(xSrc.size());
 
 	double *m = new double[n];
 	m[0] = (ySrc[1] - ySrc[0]) / (xSrc[1] - xSrc[0]);
 	m[n - 1] = (ySrc[n - 1] - ySrc[n - 2]) / (xSrc[n - 1] - xSrc[n - 2]);
-	for (int k = 1; k < n - 1l ++k)
+	for (int k = 1; k < n - 1; ++k)
 	{
 		m[k] = (ySrc[k] - ySrc[k - 1]) / (2 * (xSrc[k] - xSrc[k - 1])) +
 			(ySrc[k + 1] - ySrc[k]) / (2 * (xSrc[k + 1] - xSrc[k]));
@@ -43,7 +43,7 @@ bool MonotoneCubicHermiteSpline(int timeLimit, const vector<double> xSrc, const 
 	for (int k = 0; k < n - 1; ++k)
 	{
 		double deltaK = (ySrc[k + 1] - ySrc[k]) / (xSrc[k + 1] - xSrc[k]);
-		if (std::abs(delta_k) < = epsilon)
+		if (std::abs(deltaK) <= epsilon)
 		{
 			m[k] = 0;
 			m[k + 1] = 0;
@@ -54,8 +54,8 @@ bool MonotoneCubicHermiteSpline(int timeLimit, const vector<double> xSrc, const 
 			double bk = m[k + 1] / deltaK;
 			if (ak*bk + bk*bk > 9) /// a circle of radius 3
 			{
-				m[k] = 3 / ( sqrt( (ak*ak) + (bk * bk)) * ak * deltaK;
-				m[k + 1] = 3 / (sqrt((ak*ak) + (bk * bk)) * bk * deltaK;
+				m[k] = 3 / (sqrt((ak*ak) + (bk * bk))) * ak * deltaK;
+				m[k + 1] = 3 / (sqrt((ak*ak) + (bk * bk))) * bk * deltaK;
 			}
 		}
 	}
@@ -81,8 +81,8 @@ bool MonotoneCubicHermiteSpline(int timeLimit, const vector<double> xSrc, const 
 
 			double y = curY * ReturnH00(t) +
 				h * m[k] * ReturnH10(t) +
-				nextY * h01(t) +
-				h * m[k + 1] * h11(t);
+				nextY * ReturnH01(t) +
+				h * m[k + 1] * ReturnH11(t);
 
 			destY->push_back(y);
 		}
