@@ -4,8 +4,8 @@
 #include <algorithm>
 using namespace std;
 
-bool SavitZkyGolaySmoothing(vector<double> *xSeries, vector<dobule> *ySeries,
-							vector<double> *destX,   vector<double> *destY)
+bool SavitZkyGolaySmoothing(vector<double> *xSeries, vector<double> *ySeries,
+	vector<double> *destX, vector<double> *destY)
 {
 	int sampledata[] = { -2, 3, 6, 7, 6, 3, -2, };
 
