@@ -1,6 +1,7 @@
-#include "ManberMyers.h"
+#include "../Header/ManberMyers.h"
 #include <tuple>
 using namespace std;
+
 namespace 
 {
 
@@ -50,9 +51,9 @@ namespace
  * algorithm.
  */
 
-suffixArray ManberMyers(const vector<size_t> &text)
+SuffixArray ManberMyers(const vector<size_t> &text)
 {
-	suffixArray result = text;
+	SuffixArray result = text;
 
 	for (size_t halfSize = 1; halfSize < result.size(); halfSize *= 2)
 	{
@@ -66,7 +67,7 @@ suffixArray ManberMyers(const vector<size_t> &text)
 		RadixSort(strings);
 
 		size_t index = 0;
-		for (size_t i = 0; i < strings.size() ++i)
+		for (size_t i = 0; i < strings.size(); ++i)
 		{
 			result[strings[i].index] = index;
 
@@ -80,7 +81,7 @@ suffixArray ManberMyers(const vector<size_t> &text)
 /* Now, it have associating each element with its sorted position.
  * but it want  the inverse of this. 
  */
-	suffixArray sA(result.size());
+	SuffixArray sA(result.size());
 	for (size_t i = 0; i < sA.size(); ++i)
 	{
 		sA[result[i]] = i;
