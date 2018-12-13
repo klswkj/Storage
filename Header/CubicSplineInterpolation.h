@@ -4,18 +4,18 @@
 using namespace std;
 
 
-inline double Square(double x) const
+inline double Square(double x)
 {
 	return x*x;
 }
 
-inline double Cubic(double x) const
+inline double Cubic(double x)
 {
 	return x*x;
 }
 
-bool CubicSpline(vector<double> *xSeries, vector<double> *ySeries, 
-				 vector <double> *destX, vector<double> *destY)
+bool CubicSpline(vector<double> *xSeries, vector<double> *ySeries,
+	vector <double> *destX, vector<double> *destY)
 {
 	int n = min((int)xSeries->size(), (int)ySeries->size()) - 1;
 
@@ -29,9 +29,9 @@ bool CubicSpline(vector<double> *xSeries, vector<double> *ySeries,
 
 	for (int i = 1; i <= n - 1; ++i)
 	{
-		alpha[i] = 3 * ( (*ySeries)[i + 1] - (*ySeries)[i] ) / h[i] - 3 * ( (*ySeries)[i] - (*ySeries)[i - 1] ) / h[i - 1];
+		alpha[i] = 3 * ((*ySeries)[i + 1] - (*ySeries)[i]) / h[i] - 3 * ((*ySeries)[i] - (*ySeries)[i - 1]) / h[i - 1];
 	}
-	
+
 	double *l = new double[n + 1];
 	double *u = new double[n + 1];
 	double *z = new double[n + 1];
@@ -50,7 +50,7 @@ bool CubicSpline(vector<double> *xSeries, vector<double> *ySeries,
 
 	l[n] = 1;	z[n] = 0; c[n] = 0;
 
-	for (int i = n - 1; i >= 0; --i; )
+	for (int i = n - 1; i >= 0; --i )
 	{
 		c[i] = z[i] - u[i] * c[i + 1];
 		b[i] = ((*ySeries)[i + 1] - (*ySeries)[i]) / h[i] - h[i] * (c[i + 1] + 2 * c[i]) / 3;
@@ -60,12 +60,12 @@ bool CubicSpline(vector<double> *xSeries, vector<double> *ySeries,
 	for (int i = 0; i <= n - 2; ++i)
 	{
 		double x = (*xSeries)[i];
-		double inc = ((*xSeries)[i + 1] - (xSeries)[i]) * 0.1;
+		double inc = ((*xSeries)[i + 1] - (*xSeries)[i]) * 0.1;
 
 		for (; x < (*xSeries)[i + 1]; x += inc)
 		{
 			double xOffset = x - (*xSeries)[i];
-			double sX = (*ySeries)[i] + b[i] * xOffset + c[i] * Sqaure(xOffset) + d[i] * Cubic(xOffset);
+			double sX = (*ySeries)[i] + b[i] * xOffset + c[i] * Square(xOffset) + d[i] * Cubic(xOffset);
 
 			if (destX != NULL)
 			{
