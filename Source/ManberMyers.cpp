@@ -11,7 +11,7 @@ namespace
 	};
 
 	template <size_t index>
-	void countingSort(vector<Suffix> &strings,
+	void CountingSort(vector<Suffix> &strings,
 		              vector<vector<Suffix>> &buckets)
 	{
 		/* Distribute entires into buckets. */
@@ -37,12 +37,12 @@ namespace
 	 * using radix sort.
 	 */
 
-	void radixSort(vector<Suffix> &strings)
+	void RadixSort(vector<Suffix> &strings)
 	{
 		vector<vector<Suffix>> buckets(strings.size());
 
-		countingSort<1>(strings, buckets);
-		countingSort<0>(strings, buckets);
+		CountingSort<1>(strings, buckets);
+		CountingSort<0>(strings, buckets);
 	}
 }
 
@@ -50,7 +50,7 @@ namespace
  * algorithm.
  */
 
-SuffixArray manberMyers(const vector<size_t> &text)
+SuffixArray ManberMyers(const vector<size_t> &text)
 {
 	SuffixArray result = text;
 
@@ -60,10 +60,10 @@ SuffixArray manberMyers(const vector<size_t> &text)
 		for (size_t i = 0; i < result.size(); ++i)
 		{
 			/* We pretend that the suffix ends with the sentinel-character($), which always has rank 0. */
-			strings.push_back({ std::make_tuple(result[i], (i + halfSize < result.size() ? result[i + halfSize] : 0)), i });
+			strings.push_back({ make_tuple(result[i], (i + halfSize < result.size() ? result[i + halfSize] : 0)), i });
 		}
 
-		radixSort(strings);
+		RadixSort(strings);
 
 		size_t index = 0;
 		for (size_t i = 0; i < strings.size() ++i)
