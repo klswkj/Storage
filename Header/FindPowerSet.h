@@ -23,7 +23,7 @@ bool ForwardIndex(int *index, int indexLength, int maxLength)
 		else
 		{
 			index[i] = index[i] + 1;
-			for (j = i + 1; j < indexLength; ++j)
+			for (int j = i + 1; j < indexLength; ++j)
 			{
 				index[j] = index[j - 1] + 1;
 			}
