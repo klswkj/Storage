@@ -19,10 +19,7 @@ QuaternionComponent GetMaxComponentAndNegateIfNecessary(Quaternion4f &q)
 	else if (az >= ax && az >= ay && az >= aw)
 	{
 		maxQuatCompIndex = QuaternionComponent::kZ;
-		if (q.v[2] < 0)
-		{
-			negate = true;
-		}
+		if (q.v[2] < 0){ negate = true; }
 	}
 	else if (aw >= ax && aw >= ay && aw >= az)
 	{
