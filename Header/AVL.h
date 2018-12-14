@@ -34,180 +34,180 @@ public:
 	*/
 	~AVLTree();
 
-	/**
-	* Copy functions: AVLTree(const AVLTree &other);
-	*                 AVLTree &operator= (const AVLTree &other);
-	* Usage: AVLTree<string, int> one = two;
-	*        one = two;
-	* -------------------------------------------------------------------------
-	* Makes this AVL tree equal to a deep-copy of some other AVL tree.
-	*/
+	/*
+	 * Copy functions: AVLTree(const AVLTree &other);
+	 *                 AVLTree &operator= (const AVLTree &other);
+	 * Usage: AVLTree<string, int> one = two;
+	 *        one = two;
+	 * -------------------------------------------------------------------------
+	 * Makes this AVL tree equal to a deep-copy of some other AVL tree.
+	 */
 	AVLTree(const AVLTree &other);
 	AVLTree &operator= (const AVLTree &other);
 
-	/**
-	* Type: iterator
-	* Type: const_iterator
-	* -------------------------------------------------------------------------
-	* A pair of types that can traverse the elements of an AVL tree in
-	* ascending order.
-	*/
+	/*
+	 * Type: iterator
+	 * Type: const_iterator
+	 * -------------------------------------------------------------------------
+	 * A pair of types that can traverse the elements of an AVL tree in
+	 * ascending order.
+	 */
 	class iterator;
 	class const_iterator;
 
-	/**
-	* Type: reverse_iterator
-	* Type: const_reverse_iterator
-	* -------------------------------------------------------------------------
-	* A pair of types that can traverse the elements of an AVL tree in
-	* descending order.
-	*/
+	/*
+	 * Type: reverse_iterator
+	 * Type: const_reverse_iterator
+	 * -------------------------------------------------------------------------
+	 * A pair of types that can traverse the elements of an AVL tree in
+	 * descending order.
+	 */
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	/**
-	* std::pair<iterator, bool> insert(const Key &key, const Value &value);
-	* Usage: myAVLTree.insert("Skiplist", 137);
-	* -------------------------------------------------------------------------
-	* Inserts the specified key/value pair into the AVL tree.  If an entry with
-	* the specified key already existed, this function returns false paired
-	* with an iterator to the extant value.  If the entry was inserted
-	* successfully, returns true paired with an iterator to the new element.
-	*/
+	/*
+	 * std::pair<iterator, bool> insert(const Key &key, const Value &value);
+	 * Usage: myAVLTree.insert("Skiplist", 137);
+	 * -------------------------------------------------------------------------
+	 * Inserts the specified key/value pair into the AVL tree.  If an entry with
+	 * the specified key already existed, this function returns false paired
+	 * with an iterator to the extant value.  If the entry was inserted
+	 * successfully, returns true paired with an iterator to the new element.
+	 */
 	std::pair<iterator, bool> insert(const Key &key, const Value &value);
 
-	/**
-	* bool erase(const Key &key);
-	* Usage: myAVLTree.erase("AVL Tree");
-	* -------------------------------------------------------------------------
-	* Removes the entry from the AVL tree with the specified key, if it exists.
-	* Returns whether or not an element was erased.  All outstanding iterators
-	* remain valid, except for those referencing the deleted element.
-	*/
+	/*
+	 * bool erase(const Key &key);
+	 * Usage: myAVLTree.erase("AVL Tree");
+	 * -------------------------------------------------------------------------
+	 * Removes the entry from the AVL tree with the specified key, if it exists.
+	 * Returns whether or not an element was erased.  All outstanding iterators
+	 * remain valid, except for those referencing the deleted element.
+	 */
 	bool erase(const Key &key);
 
-	/**
-	* iterator erase(iterator where);
-	* Usage: myAVLTree.erase(myAVLTree.begin());
-	* -------------------------------------------------------------------------
-	* Removes the entry referenced by the specified iterator from the tree,
-	* returning an iterator to the next element in the sequence.
-	*/
+	/*
+	 * iterator erase(iterator where);
+	 * Usage: myAVLTree.erase(myAVLTree.begin());
+	 * -------------------------------------------------------------------------
+	 * Removes the entry referenced by the specified iterator from the tree,
+	 * returning an iterator to the next element in the sequence.
+	 */
 	iterator erase(iterator where);
 
-	/**
-	* iterator find(const Key &key);
-	* const_iterator find(const Key &key);
-	* Usage: if (myAVLTree.find("Skiplist") != myAVLTree.end()) { ... }
-	* -------------------------------------------------------------------------
-	* Returns an iterator to the entry in the AVL tree with the specified key,
-	* or end() as as sentinel if it does not exist.
-	*/
+	/*
+	 * iterator find(const Key &key);
+	 * const_iterator find(const Key &key);
+	 * Usage: if (myAVLTree.find("Skiplist") != myAVLTree.end()) { ... }
+	 * -------------------------------------------------------------------------
+	 * Returns an iterator to the entry in the AVL tree with the specified key,
+	 * or end() as as sentinel if it does not exist.
+	 */
 	iterator find(const Key &key);
 	const_iterator find(const Key &key) const;
 
-	/**
-	* Value &operator[] (const Key &key);
-	* Usage: myAVLTree["skiplist"] = 137;
-	* -------------------------------------------------------------------------
-	* Returns a reference to the value associated with the specified key in the
-	* AVL tree.  If the key is not contained in the AVL tree, it will be
-	* inserted into the AVL tree with a default-constructed Entry as its value.
-	*/
+	/*
+	 * Value &operator[] (const Key &key);
+	 * Usage: myAVLTree["skiplist"] = 137;
+	 * -------------------------------------------------------------------------
+	 * Returns a reference to the value associated with the specified key in the
+	 * AVL tree.  If the key is not contained in the AVL tree, it will be
+	 * inserted into the AVL tree with a default-constructed Entry as its value.
+	 */
 	Value &operator[] (const Key &key);
 
-	/**
-	* Value &at(const Key &key);
-	* const Value &at(const Key &key) const;
-	* Usage: myAVLTree.at("skiplist") = 137;
-	* -------------------------------------------------------------------------
-	* Returns a reference to the value associated with the specified key,
-	* throwing a std::out_of_range exception if the key does not exist in the
-	* AVL tree.
-	*/
+	/*
+	 * Value &at(const Key &key);
+	 * const Value &at(const Key &key) const;
+	 * Usage: myAVLTree.at("skiplist") = 137;
+	 * -------------------------------------------------------------------------
+	 * Returns a reference to the value associated with the specified key,
+	 * throwing a std::out_of_range exception if the key does not exist in the
+	 * AVL tree.
+	 */
 	Value &at(const Key &key);
 	const Value &at(const Key &key) const;
 
-	/**
-	* (const_)iterator begin() (const);
-	* (const_)iterator end() (const);
-	* Usage: for (AVLTree<string, int>::iterator itr = t.begin();
-	*             itr != t.end(); ++itr) { ... }
-	* -------------------------------------------------------------------------
-	* Returns iterators delineating the full contents of the AVL tree.  Each
-	* iterator acts as a pointer to a std::pair<const Key, Entry>.
-	*/
+	/*
+	 * (const_)iterator begin() (const);
+	 * (const_)iterator end() (const);
+	 * Usage: for (AVLTree<string, int>::iterator itr = t.begin();
+	 *             itr != t.end(); ++itr) { ... }
+	 * -------------------------------------------------------------------------
+	 * Returns iterators delineating the full contents of the AVL tree.  Each
+	 * iterator acts as a pointer to a std::pair<const Key, Entry>.
+	 */
 	iterator begin();
 	iterator end();
 	const_iterator begin() const;
 	const_iterator end() const;
 
-	/**
-	* (const_)reverse_iterator rbegin() (const);
-	* (const_)reverse_iterator rend() (const);
-	* Usage: for (AVLTree<string, int>::reverse_iterator itr = s.rbegin();
-	*             itr != s.rend(); ++itr) { ... }
-	* -------------------------------------------------------------------------
-	* Returns iterators delineating the full contents of the AVL tree in
-	* reverse order.
-	*/
+	/*
+	 * (const_)reverse_iterator rbegin() (const);
+	 * (const_)reverse_iterator rend() (const);
+	 * Usage: for (AVLTree<string, int>::reverse_iterator itr = s.rbegin();
+	 *             itr != s.rend(); ++itr) { ... }
+	 * -------------------------------------------------------------------------
+	 * Returns iterators delineating the full contents of the AVL tree in
+	 * reverse order.
+	 */
 	reverse_iterator rbegin();
 	reverse_iterator rend();
 	const_reverse_iterator rbegin() const;
 	const_reverse_iterator rend() const;
 
-	/**
-	* (const_)iterator lower_bound(const Key &key) (const);
-	* (const_)iterator upper_bound(const Key &key) (const);
-	* Usage: for (AVLTree<string, int>::iterator itr = t.lower_bound("AVL");
-	*             itr != t.upper_bound("skiplist"); ++itr) { ... }
-	* -------------------------------------------------------------------------
-	* lower_bound returns an iterator to the first element in the AVL tree
-	* whose key is at least as large as key.  upper_bound returns an iterator
-	* to the first element in the AVL tree whose key is strictly greater than
-	* key.
-	*/
+	/*
+	 * (const_)iterator lower_bound(const Key &key) (const);
+	 * (const_)iterator upper_bound(const Key &key) (const);
+	 * Usage: for (AVLTree<string, int>::iterator itr = t.lower_bound("AVL");
+	 *             itr != t.upper_bound("skiplist"); ++itr) { ... }
+	 * -------------------------------------------------------------------------
+	 * lower_bound returns an iterator to the first element in the AVL tree
+	 * whose key is at least as large as key.  upper_bound returns an iterator
+	 * to the first element in the AVL tree whose key is strictly greater than
+	 * key.
+	 */
 	iterator lower_bound(const Key &key);
 	iterator upper_bound(const Key &key);
 	const_iterator lower_bound(const Key &key) const;
 	const_iterator upper_bound(const Key &key) const;
 
-	/**
-	* std::pair<(const_)iterator, (const_)iterator>
-	*    equal_range(const Key &key) (const);
-	* Usage: std::pair<AVLTree<int, int>::iterator, AVLTree<int, int>::iterator>
-	*          range = t.equal_range("AVL");
-	* -------------------------------------------------------------------------
-	* Returns a range of iterators spanning the unique copy of the entry whose
-	* key is key if it exists, and otherwise a pair of iterators both pointing
-	* to the spot in the AVL tree where the element would be if it were.
-	*/
+	/*
+	 * std::pair<(const_)iterator, (const_)iterator>
+	 *    equal_range(const Key &key) (const);
+	 * Usage: std::pair<AVLTree<int, int>::iterator, AVLTree<int, int>::iterator>
+	 *          range = t.equal_range("AVL");
+	 * -------------------------------------------------------------------------
+	 * Returns a range of iterators spanning the unique copy of the entry whose
+	 * key is key if it exists, and otherwise a pair of iterators both pointing
+	 * to the spot in the AVL tree where the element would be if it were.
+	 */
 	std::pair<iterator, iterator> equal_range(const Key &key);
 	std::pair<const_iterator, const_iterator> equal_range(const Key &key) const;
 
-	/**
-	* size_t size() const;
-	* Usage: cout << "AVLTree contains " << s.size() << " entries." << endl;
-	* -------------------------------------------------------------------------
-	* Returns the number of elements stored in the AVL tree.
-	*/
+	/*
+	 * size_t size() const;
+	 * Usage: cout << "AVLTree contains " << s.size() << " entries." << endl;
+	 * -------------------------------------------------------------------------
+	 * Returns the number of elements stored in the AVL tree.
+	 */
 	size_t size() const;
 
-	/**
-	* bool empty() const;
-	* Usage: if (s.empty()) { ... }
-	* -------------------------------------------------------------------------
-	* Returns whether the AVL tree contains no elements.
-	*/
+	/*
+	 * bool empty() const;
+	 * Usage: if (s.empty()) { ... }
+	 * -------------------------------------------------------------------------
+	 * Returns whether the AVL tree contains no elements.
+	 */
 	bool empty() const;
 
-	/**
-	* void swap(AVLTree &other);
-	* Usage: one.swap(two);
-	* -------------------------------------------------------------------------
-	* Exchanges the contents of this AVL tree and some other AVL tree.  All
-	* outstanding iterators are invalidated.
-	*/
+	/*
+	 * void swap(AVLTree &other);
+	 * Usage: one.swap(two);
+	 * -------------------------------------------------------------------------
+	 * Exchanges the contents of this AVL tree and some other AVL tree.  All
+	 * outstanding iterators are invalidated.
+	 */
 	void swap(AVLTree &other);
 
 private:
@@ -216,9 +216,9 @@ private:
 	{
 		std::pair<const Key, Value> mValue; // The actual value stored here
 
-											/* The children are stored in an array to make it easier to implement tree
-											* rotations.  The first entry is the left child, the second the right.
-											*/
+	        /* The children are stored in an array to make it easier to implement tree
+		 * rotations.  The first entry is the left child, the second the right.
+		 */
 		Node *mChildren[2];
 
 		/* Pointer to the parent node. */
@@ -323,27 +323,29 @@ private:
 template <typename Key, typename Value, typename Comparator>
 bool operator<  (const AVLTree<Key, Value, Comparator> &lhs,
 	const AVLTree<Key, Value, Comparator> &rhs);
+
 template <typename Key, typename Value, typename Comparator>
 bool operator<= (const AVLTree<Key, Value, Comparator> &lhs,
 	const AVLTree<Key, Value, Comparator> &rhs);
+
 template <typename Key, typename Value, typename Comparator>
 bool operator== (const AVLTree<Key, Value, Comparator> &lhs,
 	const AVLTree<Key, Value, Comparator> &rhs);
+
 template <typename Key, typename Value, typename Comparator>
 bool operator!= (const AVLTree<Key, Value, Comparator> &lhs,
 	const AVLTree<Key, Value, Comparator> &rhs);
+
 template <typename Key, typename Value, typename Comparator>
 bool operator>= (const AVLTree<Key, Value, Comparator> &lhs,
 	const AVLTree<Key, Value, Comparator> &rhs);
+
 template <typename Key, typename Value, typename Comparator>
 bool operator>  (const AVLTree<Key, Value, Comparator> &lhs,
 	const AVLTree<Key, Value, Comparator> &rhs);
 
-/* * * * * Implementation Below This Point * * * * */
-
-/* Definition of the IteratorBase type, which is used to provide a common
-* implementation for iterator and const_iterator.
-*/
+/* Definition of the IteratorBase type
+ */
 template <typename Key, typename Value, typename Comparator>
 template <typename DerivedType, typename Pointer, typename Reference>
 class AVLTree<Key, Value, Comparator>::IteratorBase 
@@ -353,8 +355,8 @@ public:
 	typedef typename AVLTree<Key, Value, Comparator>::Node Node;
 
 	/* Advance operators just construct derived type instances of the proper
-	* type, then advance them.
-	*/
+	 * type, then advance them.
+	 */
 	DerivedType &operator++ () 
 	{
 		mCurr = mCurr->mNext;
@@ -379,18 +381,16 @@ public:
 		/* If the current pointer is NULL, it means that we've walked off the end
 		* of the structure and need to back up a step.
 		*/
-		if (mCurr == NULL) {
-			mCurr = mOwner->mTail;
-		}
+		if (mCurr == NULL) { mCurr = mOwner->mTail; }
+		
 		/* Otherwise, just back up a step. */
-		else {
-			mCurr = mCurr->mPrev;
-		}
+		else { mCurr = mCurr->mPrev; }
 
 		/* Downcast to our actual type. */
 		return static_cast<DerivedType&>(*this);
 	}
-	const DerivedType operator-- (int) {
+	const DerivedType operator-- (int) 
+	{
 		/* Copy our current value by downcasting to our real type. */
 		DerivedType result = static_cast<DerivedType&>(*this);
 
@@ -402,29 +402,33 @@ public:
 	}
 
 	/* Equality and disequality operators are parameterized - we'll allow anyone
-	* whose type is IteratorBase to compare with us.  This means that we can
-	* compare both iterator and const_iterator against one another.
-	*/
+	 * whose type is IteratorBase to compare with us.  This means that we can
+	 * compare both iterator and const_iterator against one another.
+	 */
 	template <typename DerivedType2, typename Pointer2, typename Reference2>
-	bool operator== (const IteratorBase<DerivedType2, Pointer2, Reference2> &rhs) {
+	bool operator== (const IteratorBase<DerivedType2, Pointer2, Reference2> &rhs)
+	{
 		/* Just check the underlying pointers, which (fortunately!) are of the
 		* same type.
 		*/
 		return mOwner == rhs.mOwner & &mCurr == rhs.mCurr;
 	}
 	template <typename DerivedType2, typename Pointer2, typename Reference2>
-	bool operator!= (const IteratorBase<DerivedType2, Pointer2, Reference2> &rhs) {
+	bool operator!= (const IteratorBase<DerivedType2, Pointer2, Reference2> &rhs) 
+	{
 		/* We are disequal if equality returns false. */
 		return !(*this == rhs);
 	}
 
 	/* Pointer dereference operator hands back a reference. */
-	Reference operator* () const {
+	Reference operator* () const 
+	{
 		return mCurr->mValue;
 	}
 
 	/* Arrow operator returns a pointer. */
-	Pointer operator-> () const {
+	Pointer operator-> () const 
+	{
 		/* Use the standard "&**this" trick to dereference this object and return
 		* a pointer to the referenced value.
 		*/
@@ -449,9 +453,8 @@ protected:
 
 	/* Constructor sets up the AVL tree and node pointers appropriately. */
 	IteratorBase(const AVLTree* owner = NULL, Node* curr = NULL)
-		: mOwner(owner), mCurr(curr) {
+		: mOwner(owner), mCurr(curr) {}
 		// Handled in initializer list
-	}
 };
 
 /* iterator and const_iterator implementations work by deriving off of
@@ -485,11 +488,9 @@ private:
 		typename AVLTree<Key, Value, Comparator>::Node* node) :
 		IteratorBase<iterator,
 		std::pair<const Key, Value>*,
-		std::pair<const Key, Value>&>(owner, node) 
-	{
+		std::pair<const Key, Value>&>(owner, node) {}
 		// Handled by initializer list
-	}
-
+		
 	/* Make the AVLTree a friend so it can call this constructor. */
 	friend class AVLTree;
 
@@ -510,10 +511,7 @@ class AVLTree<Key, Value, Comparator>::const_iterator :
 { 
 public:
 	/* Default constructor forwards NULL to base implicity. */
-	const_iterator() 
-	{
-		// Nothing to do here.
-	}
+	const_iterator() {}
 
 	/* iterator conversion constructor forwards the other iterator's base fields
 	* to the base class.
@@ -521,23 +519,18 @@ public:
 	const_iterator(iterator itr) :
 		IteratorBase<const_iterator,
 		const std::pair<const Key, Value>*,
-		const std::pair<const Key, Value>&>(itr.mOwner, itr.mCurr) 
-	{
+		const std::pair<const Key, Value>&>(itr.mOwner, itr.mCurr) {}
 		// Handled in initializer list
-	}
 
-	/* All major operations inherited from the base type. */
-
+/* All major operations inherited from the base type. */
 private:
 	/* See iterator implementation for details about what this does. */
 	const_iterator(const AVLTree* owner,
 		typename AVLTree<Key, Value, Comparator>::Node* node) :
 		IteratorBase<const_iterator,
 		const std::pair<const Key, Value>*,
-		const std::pair<const Key, Value>&>(owner, node) 
-	{
+		const std::pair<const Key, Value>&>(owner, node) {}
 		// Handled by initializer list
-	}
 
 	/* Make the AVLTree a friend so it can call this constructor. */
 	friend class AVLTree;
@@ -552,13 +545,11 @@ template <typename Key, typename Value, typename Comparator>
 AVLTree<Key, Value, Comparator>::Node::Node(const Key &key,
 	const Value &value,
 	int height)
-	: mValue(key, value), mHeight(height) 
-{
+	: mValue(key, value), mHeight(height) {}
 	// Handled in initializer list.
-}
 
-/**** AVLTree Implementation ****/
 
+/// AVLTree Implementation
 /* Constructor sets up a new, empty AVLTree. */
 template <typename Key, typename Value, typename Comparator>
 AVLTree<Key, Value, Comparator>::AVLTree(Comparator comp) : mComp(comp) 
