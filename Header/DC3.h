@@ -1,7 +1,6 @@
 #ifndef DC3_Included
 #define DC3_Included
 
-#pragma once
 #include "ManberMyers.h"
 
 /* Computes a suffix array using the DC3 algorithm. As with the Manber-Myers
