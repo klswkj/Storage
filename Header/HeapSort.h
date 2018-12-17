@@ -1,6 +1,4 @@
 #pragma once
-#ifndef Heapsort_Included
-#define Heapsort_Included
 
 #include <iterator>
 #include <functional>
@@ -130,5 +128,3 @@ void Heapsort(RandomIterator begin, RandomIterator end)
 	Heapsort(begin, end,
 		std::less<typename std::iterator_traits<RandomIterator>::value_type>());
 }
-
-#endif
