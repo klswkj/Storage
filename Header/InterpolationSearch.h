@@ -3,9 +3,6 @@
 https://en.wikipedia.org/wiki/Interpolation_search
 */
 
-#ifndef InterpolationSearch_Included
-#define InterpolationSearch_Included
-
 #include <iterator> // For iterator_traits
 
 /**
@@ -49,4 +46,3 @@ bool InterpolationSearch(RandomIterator begin,
 	/* Fail this question. */
 	return false;
 }
-#endif
