@@ -1,6 +1,3 @@
-#ifndef ManberMyers_Included
-#define ManberMyers_included
-
 #pragma once
 #include <vector>
 #include <cstddef> // For size_t
@@ -25,5 +22,3 @@
 using SuffixArray = std::vector<std::size_t>;
 
 SuffixArray ManberMyers(const std::vector<size_t> &text);
-
-#endif
