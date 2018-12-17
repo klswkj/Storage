@@ -3,13 +3,12 @@
 #include <algorithm>
 using namespace std;
 
-
-inline double Square(double x)
+double Square(double x)
 {
 	return x*x;
 }
 
-inline double Cubic(double x)
+double Cubic(double x)
 {
 	return x*x;
 }
