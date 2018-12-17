@@ -1,6 +1,4 @@
 #pragma once
-#ifndef Mergesort_Included
-#define Mergesort_Included
 
 #include <vector>
 #include <functional>
@@ -117,4 +115,3 @@ void Mergesort(std::vector<T>& elems)
 {
 	Mergesort(elems, std::less<T>());
 }
-#endif
