@@ -1,4 +1,3 @@
-#pragma once
 #ifndef AVLTree_Included
 #define AVLTree_Included
 
