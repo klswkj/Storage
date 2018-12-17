@@ -1,5 +1,4 @@
-#ifndef AVLTree_Included
-#define AVLTree_Included
+#pragma once
 
 #include <algorithm>   // For lexicographical_compare, equal, max
 #include <functional>  // For less
@@ -1455,4 +1454,3 @@ bool operator>  (const AVLTree<Key, Value, Comparator> &lhs,
 	/* x > y iff y < x */
 	return rhs < lhs;
 }
-#endif
