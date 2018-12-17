@@ -1,5 +1,4 @@
-#ifndef DC3_Included
-#define DC3_Included
+#pragma once
 
 #include "ManberMyers.h"
 
@@ -9,5 +8,3 @@
 * among all characters.
 */
 SuffixArray dc3(const std::vector<std::size_t> &text);
-
-#endif
