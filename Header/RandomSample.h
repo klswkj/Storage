@@ -1,6 +1,4 @@
 #pragma once
-#ifndef RandomSample_Included
-#define RandomSample_Included
 
 #include <cstdlib> // For rand
 
@@ -68,4 +66,3 @@ RandomIterator RandomSample(InputIterator inBegin, InputIterator inEnd,
 {
 	return RandomSample(inBegin, inEnd, outBegin, outEnd, std::rand);
 }
-#endif
